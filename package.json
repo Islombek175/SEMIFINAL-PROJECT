@@ -1,0 +1,27 @@
+{
+	"name": "semifinal-project-101",
+	"version": "1.0.0",
+	"description": "semifinal",
+	"main": "index.js",
+	"scripts": {
+		"test": "node index.js",
+		"dev": "nodemon index.js"
+	},
+	"repository": {
+		"type": "module",
+		"url": "git+https://github.com/Islombek175/SEMIFINAL-PROJECT.git"
+	},
+	"author": "Islombek",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Islombek175/SEMIFINAL-PROJECT/issues"
+	},
+	"homepage": "https://github.com/Islombek175/SEMIFINAL-PROJECT#readme",
+	"dependencies": {
+		"dotenv": "^17.2.3",
+		"node-telegram-bot-api": "^0.66.0"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.11"
+	}
+}

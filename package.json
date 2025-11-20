@@ -2,10 +2,10 @@
 	"name": "semifinal-project-101",
 	"version": "1.0.0",
 	"description": "semifinal",
-	"main": "index.js",
+	"main": "bot.js",
 	"scripts": {
-		"test": "node index.js",
-		"dev": "nodemon index.js"
+		"test": "node bot.js",
+		"dev": "nodemon bot.js"
 	},
 	"repository": {
 		"type": "module",

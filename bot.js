@@ -1,20 +1,18 @@
+import 'dotenv/config'
 import TelegramBot from 'node-telegram-bot-api'
+import { onStart } from './src/onStart.js'
 const token = process.env.BOT_TOKEN
-
 const bot = new TelegramBot(token, { polling: true })
 
 bot.on('message', msg => {
 	const chatId = msg.chat.id
-	const userName = msg.chat.username
+	const firstName = msg.chat.first_name
 	const text = msg.text
 
 	// KOMANDALAR
 	switch (text) {
 		case '/start':
-			bot.sendMessage(
-				chatId,
-				`Assalamu aleykum ${userName}, botimizga xush kelibsiz.🎉\ Ko'proq ma'lumot olish uchun /menu komandasini yuboring.`
-			)
+			onStart(chatId, firstName)
 			break
 		case '/menu':
 			bot.sendMessage(
@@ -75,3 +73,5 @@ bot.on('callback_query', query => {
 			break
 	}
 })
+
+export { bot }

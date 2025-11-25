@@ -1,8 +1,21 @@
+import { config } from 'dotenv'
 import 'dotenv/config'
+import mongoose from 'mongoose'
 import TelegramBot from 'node-telegram-bot-api'
+import { courseHandler } from './src/courseHandler.js'
 import { onStart } from './src/onStart.js'
 const token = process.env.BOT_TOKEN
 const bot = new TelegramBot(token, { polling: true })
+config()
+
+mongoose
+	.connect(process.env.MONGO_URI)
+	.then(() => {
+		console.log('DB is connected...')
+	})
+	.catch(() => {
+		console.log('ERROR, DB is not connected...')
+	})
 
 bot.on('message', msg => {
 	const chatId = msg.chat.id
@@ -45,29 +58,11 @@ bot.on('message', msg => {
 bot.on('callback_query', query => {
 	const data = query.data
 	const chatId = query.message.chat.id
-	// bot.answerCallbackQuery(query.id)
+	bot.answerCallbackQuery(query.id)
 
-	// TILNI TANLASH
 	switch (data) {
-		case 'change_language':
-			bot.sendMessage(chatId, 'Iltimos bir tilni tanlang:', {
-				reply_markup: {
-					inline_keyboard: [
-						[{ text: 'Uzbek 🇺🇿', callback_data: 'Uz' }],
-						[{ text: 'Russian 🇷🇺', callback_data: 'Ru' }],
-						[{ text: 'English 🇺🇸', callback_data: 'En' }],
-					],
-				},
-			})
-			break
-		case 'Uz':
-			bot.sendMessage(chatId, "Siz O'zbek tili ni tanladingiz 🇺🇿")
-			break
-		case 'Ru':
-			bot.sendMessage(chatId, 'Siz Rus tili ni tanladingiz 🇷🇺')
-			break
-		case 'En':
-			bot.sendMessage(chatId, 'Siz Ingliz tili ni tanladingiz 🇺🇸')
+		case 'courses':
+			courseHandler(chatId)
 			break
 		default:
 			break
